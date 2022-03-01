@@ -15,6 +15,9 @@ struct ContentView: View {
     // Starts as a transparent pixel – until an address for an animal's image is set
     @State var currentImage = URL(string: "https://www.russellgordon.ca/lcs/miscellaneous/transparent-pixel.png")!
     
+    // The input given from the user (note)
+    @State var inputGiven = ""
+    
     // MARK: Computed properties
     var body: some View {
         
@@ -38,6 +41,14 @@ struct ContentView: View {
             }
             .font(.system(size: 70))
             
+            // Make a note about the image
+            TextField("Make a note",
+                      text: $inputGiven)
+                .multilineTextAlignment(TextAlignment.center)
+                .textFieldStyle(.roundedBorder)
+                .font(.system(size: 20))
+                .padding()
+
             Spacer()
         }
         // Runs once when the app is opened
