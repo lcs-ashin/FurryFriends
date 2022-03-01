@@ -25,7 +25,20 @@ struct ContentView: View {
             
             // Push main image to top of screen
             Spacer()
-
+            
+            // Buttons
+            HStack {
+                // Favourite Button
+                Image(systemName: "pawprint.circle")
+                    .foregroundColor(.secondary)
+                
+                // Next Image
+                Image(systemName: "arrow.forward.circle")
+                    .foregroundColor(.secondary)
+            }
+            .font(.system(size: 70))
+            
+            Spacer()
         }
         // Runs once when the app is opened
         .task {
