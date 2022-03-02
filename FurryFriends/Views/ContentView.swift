@@ -19,7 +19,11 @@ struct ContentView: View {
     // The input given from the user (note)
     @State var inputGiven = ""
     
+    // Check if the new image is loaded
     @State var isTheNewImageLoaded: Bool = false
+    
+    // Check if the current image already exists in the list
+    @State var currentImageAddedToFavourites: Bool = false
     
     // MARK: Computed properties
     var body: some View {
