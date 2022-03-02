@@ -17,7 +17,10 @@ struct FavouritesView: View {
         List {
             HStack {
                 RemoteImageView(fromURL: URL(string: currentImage.message)!)
+                    .frame(width: 100, height: 100, alignment: .center)
+                    .padding(15)
                 Text("\(inputGiven)")
+                    .font(.system(size: 20))
             }
         }
         .navigationTitle("Favourites")
