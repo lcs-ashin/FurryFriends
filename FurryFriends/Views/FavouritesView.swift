@@ -8,18 +8,26 @@
 import SwiftUI
 
 struct FavouritesView: View {
+    // MARK: Stored properties
+    let currentImage: DogImage
+    let inputGiven: String
+    
+    // MARK: Computed properties
     var body: some View {
         List {
-           Text("This is a place holder")
+            HStack {
+                RemoteImageView(fromURL: URL(string: currentImage.message)!)
+                Text("\(inputGiven)")
+            }
         }
         .navigationTitle("Favourites")
     }
 }
 
-struct FavouritesView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            FavouritesView()
-        }
-    }
-}
+//struct FavouritesView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        NavigationView {
+//            FavouritesView()
+//        }
+//    }
+//}
