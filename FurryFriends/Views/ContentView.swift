@@ -26,9 +26,6 @@ struct ContentView: View {
             // Shows the main image
             RemoteImageView(fromURL: currentImage)
             
-            // Push main image to top of screen
-            Spacer()
-            
             // Buttons
             HStack {
                 // Favourite Button
@@ -48,6 +45,17 @@ struct ContentView: View {
                 .textFieldStyle(.roundedBorder)
                 .font(.system(size: 20))
                 .padding()
+            
+            // Navigation link to the favourites view
+                NavigationLink(destination: FavouritesView()) {
+                    HStack {
+                        Text("Favourites")
+                            
+                        Image(systemName: "list.bullet")
+                    }
+                    .foregroundColor(.primary)
+                    .font(.system(size: 25).bold())
+                }
 
             Spacer()
         }
