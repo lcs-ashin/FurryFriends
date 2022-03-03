@@ -126,6 +126,9 @@ struct ContentView: View {
                 
                 print("I tried to load a new image")
                 
+                // Loading favourites from the local device storage
+                loadFavourites()
+                
             }
             .navigationTitle("Furry Friends")
     }
