@@ -16,6 +16,7 @@
 		8AAD020E27CE6D0F00F4E4C1 /* FavouritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAD020D27CE6D0F00F4E4C1 /* FavouritesView.swift */; };
 		8AAD021127CF076C00F4E4C1 /* DogImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAD021027CF076C00F4E4C1 /* DogImage.swift */; };
 		8AAD021327CFE09A00F4E4C1 /* SavedDog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAD021227CFE09A00F4E4C1 /* SavedDog.swift */; };
+		8AAD021627D0738200F4E4C1 /* SharedFunctionsAndConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAD021527D0738200F4E4C1 /* SharedFunctionsAndConstants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		8AAD020D27CE6D0F00F4E4C1 /* FavouritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesView.swift; sourceTree = "<group>"; };
 		8AAD021027CF076C00F4E4C1 /* DogImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogImage.swift; sourceTree = "<group>"; };
 		8AAD021227CFE09A00F4E4C1 /* SavedDog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedDog.swift; sourceTree = "<group>"; };
+		8AAD021527D0738200F4E4C1 /* SharedFunctionsAndConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedFunctionsAndConstants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 		8134B14327CA4862004DEB85 /* FurryFriends */ = {
 			isa = PBXGroup;
 			children = (
+				8AAD021427D0735F00F4E4C1 /* Shared */,
 				8AAD020F27CF075200F4E4C1 /* Model */,
 				8134B14427CA4862004DEB85 /* FurryFriendsApp.swift */,
 				8134B15227CA55BC004DEB85 /* Views */,
@@ -104,6 +107,14 @@
 				8AAD021227CFE09A00F4E4C1 /* SavedDog.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		8AAD021427D0735F00F4E4C1 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				8AAD021527D0738200F4E4C1 /* SharedFunctionsAndConstants.swift */,
+			);
+			path = Shared;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -180,6 +191,7 @@
 				8134B14727CA4862004DEB85 /* ContentView.swift in Sources */,
 				8AAD021127CF076C00F4E4C1 /* DogImage.swift in Sources */,
 				8134B15427CA55F4004DEB85 /* RemoteImageView.swift in Sources */,
+				8AAD021627D0738200F4E4C1 /* SharedFunctionsAndConstants.swift in Sources */,
 				8AAD020E27CE6D0F00F4E4C1 /* FavouritesView.swift in Sources */,
 				8AAD021327CFE09A00F4E4C1 /* SavedDog.swift in Sources */,
 				8134B14527CA4862004DEB85 /* FurryFriendsApp.swift in Sources */,

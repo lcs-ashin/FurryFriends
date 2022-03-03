@@ -11,6 +11,9 @@ struct ContentView: View {
     
     // MARK: Stored properties
     
+    // Detect the app's state
+    @Environment(\.scenePhase) var scenePhase
+    
     // Address for main image
     // Starts as a transparent pixel – until an address for an animal's image is set
     @State var currentImage: DogImage = DogImage(message: "https://www.russellgordon.ca/lcs/miscellaneous/transparent-pixel.png",
@@ -93,6 +96,29 @@ struct ContentView: View {
                 Spacer()
                     .padding()
         }
+        
+        // React to changes of state for the app (foreground, background, and inactive)
+        .onChange(of: scenePhase) { newPhase in
+            
+            if newPhase == .inactive {
+                
+                print("Inactive")
+                
+            } else if newPhase == .active {
+                
+                print("Active")
+                
+            } else if newPhase == .background {
+                
+                print("Background")
+                
+                // Permanently save the list of tasks
+                persistFavourites()
+                
+            }
+        }
+
+        
             // Runs once when the app is opened
             .task {
                 
@@ -149,6 +175,71 @@ struct ContentView: View {
         }
         
     }
+        
+        // Saves (persists) the data to local storage on the device
+        func persistFavourites() {
+            
+            // Get a URL that points to the saved JSON data containing our list of tasks
+            let filename = getDocumentsDirectory().appendingPathComponent(savedFavouritesLabel)
+            
+            // Try to encode the data in our people array to JSON
+            do {
+                // Create an encoder
+                let encoder = JSONEncoder()
+                
+                // Ensure the JSON written to the file is human-readable
+                encoder.outputFormatting = .prettyPrinted
+                
+                // Encode the list of favourites we've collected
+                let data = try encoder.encode(favourites)
+                
+                // Actually write the JSON file to the documents directory
+                try data.write(to: filename, options: [.atomicWrite, .completeFileProtection])
+                
+                // See the data that was written
+                print("Saved data to documents directory successfully.")
+                print("===")
+                print(String(data: data, encoding: .utf8)!)
+                
+            } catch {
+                
+                print(error.localizedDescription)
+                print("Unable to write list of favourites to documents directory in app bundle on device.")
+                
+            }
+
+        }
+        
+        // Loads favourites from local storage on the device into the list of favourites
+        func loadFavourites() {
+            
+            // Get a URL that points to the saved JSON data containing our list of favourites
+            let filename = getDocumentsDirectory().appendingPathComponent(savedFavouritesLabel)
+            print(filename)
+                    
+            // Attempt to load from the JSON in the stored / persisted file
+            do {
+                
+                // Load the raw data
+                let data = try Data(contentsOf: filename)
+                
+                // What was loaded from the file?
+                print("Got data from file, contents are:")
+                print(String(data: data, encoding: .utf8)!)
+
+                // Decode the data into Swift native data structures
+                favourites = try JSONDecoder().decode([SavedDog].self, from: data)
+                
+            } catch {
+                
+                // What went wrong?
+                print(error.localizedDescription)
+                print("Could not load data from file, initializing with tasks provided to initializer.")
+
+            }
+
+            
+        }
     
 }
 
