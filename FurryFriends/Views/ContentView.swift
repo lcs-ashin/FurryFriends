@@ -22,6 +22,13 @@ struct ContentView: View {
     // Check if the new image is loaded
     @State var isTheNewImageLoaded: Bool = false
     
+    // List of favourites
+    @State var favourites: [DogImage] = []
+    
+    // The image and comment saved in the favourite list
+    @State var favouriteDog: SavedDog = SavedDog(imageAdress: "",
+                                                 comment: "")
+    
     // Check if the current image already exists in the list
     @State var currentImageAddedToFavourites: Bool = false
     
@@ -37,54 +44,81 @@ struct ContentView: View {
             HStack {
                 // Favourite Button
                 Image(systemName: "pawprint.circle")
-                    .foregroundColor(.secondary)
-                
-                // Next Image
-                Image(systemName: "arrow.forward.circle")
-                    .foregroundColor(isTheNewImageLoaded == true ? .accentColor : .secondary)
+                    .foregroundColor(currentImageAddedToFavourites == true ? .brown : .secondary)
                     .onTapGesture {
-                        Task {
-                            await loadNewDogImage()
-                        }
-                        isTheNewImageLoaded = true
-                    }
-            }
-            .font(.system(size: 70))
-            
-            // Make a note about the image
-            TextField("Make a note",
-                      text: $inputGiven)
-                .multilineTextAlignment(TextAlignment.center)
-                .textFieldStyle(.roundedBorder)
-                .font(.system(size: 20))
-                .padding()
-            
-            // Navigation link to the favourites view
-            NavigationLink(destination: FavouritesView(currentImage: currentImage,
-                                                       inputGiven: inputGiven)) {
-                    HStack {
-                        Text("Favourites")
+                        // Only add to the list if it is not already there
+                        if currentImageAddedToFavourites == false {
                             
-                        Image(systemName: "list.bullet")
+                            // Adds the current image to the list
+                            favourites.append(currentImage)
+                            
+                            // Record that we have marked this as a favourite
+                            currentImageAddedToFavourites = true
+                        }
                     }
-                    .foregroundColor(.primary)
-                    .font(.system(size: 25).bold())
-                }
-
-            Spacer()
-                .padding()
-        }
-        // Runs once when the app is opened
-        .task {
-            
-            await loadNewDogImage()
-            
-            print("I tried to load a new image")
                         
+                        // Next Image
+                        Image(systemName: "arrow.forward.circle")
+                            .foregroundColor(isTheNewImageLoaded == true ? .accentColor : .secondary)
+                            .onTapGesture {
+                                Task {
+                                    await loadNewDogImage()
+                                }
+                                isTheNewImageLoaded = true
+                                inputGiven = ""
+                            }
+                    }
+                    .font(.system(size: 70))
+            
+                // Make a note about the image
+                TextField("Make a note",
+                          text: $inputGiven)
+                    .multilineTextAlignment(TextAlignment.center)
+                    .textFieldStyle(.roundedBorder)
+                    .font(.system(size: 20))
+                    .padding()
+                
+            
+                List(favourites, id: \.self) { currentFavourite in
+                    
+                    HStack {
+                        RemoteImageView(fromURL: URL(string: currentFavourite.message)!)
+                            .frame(width: 100, height: 100, alignment: .center)
+                            .padding(15)
+                        Text("\(inputGiven)")
+                            .font(.system(size: 20))
+                    }
+                    
+                }
+                
+                // Navigation link to the favourites view
+                //            NavigationLink(destination: FavouritesView(currentImage: currentImage,
+                //                                                       inputGiven: inputGiven)) {
+                //                    HStack {
+                //                        Text("Favourites")
+                //
+                //                        Image(systemName: "list.bullet")
+                //                    }
+                //                    .foregroundColor(.primary)
+                //                    .font(.system(size: 25).bold())
+                //                }
+                
+              //  Spacer()
+                    .padding()
         }
-        .navigationTitle("Furry Friends")
-        
+            // Runs once when the app is opened
+            .task {
+                
+                await loadNewDogImage()
+                
+                print("I tried to load a new image")
+                
+            }
+            .navigationTitle("Furry Friends")
     }
+    
+        
+    
     
     // MARK: Functions
     
@@ -103,7 +137,7 @@ struct ContentView: View {
         // Start a session to interact (talk with) the endpoint
         let urlSession = URLSession.shared
         
-        // Try to fetch a new joke
+        // Try to fetch a new image
         // It might not work, so we use a do-catch block
         do {
             
@@ -111,13 +145,14 @@ struct ContentView: View {
             let (data, _) = try await urlSession.data(for: request)
             
             // Attempt to decode the raw data into a Swift structure
-            // Takes what is in "data" and tries to put it into "currentJoke"
+            // Takes what is in "data" and tries to put it into "currentImage"
             //                                 DATA TYPE TO DECODE TO
             //                                         |
             //                                         V
             currentImage = try JSONDecoder().decode(DogImage.self, from: data)
             
             isTheNewImageLoaded = false
+            currentImageAddedToFavourites = false
             
         } catch {
             print("Could not retrieve or decode the JSON from endpoint.")
@@ -125,10 +160,11 @@ struct ContentView: View {
             // populates
             print(error)
         }
-
+        
     }
     
 }
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
