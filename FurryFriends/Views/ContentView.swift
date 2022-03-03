@@ -83,7 +83,7 @@ struct ContentView: View {
                     .padding()
             
                 // Navigation link to the favourites view
-            NavigationLink(destination: FavouritesView(favouriteDog:$favouriteDog)) {
+            NavigationLink(destination: FavouritesView(favourites: favourites)) {
                                     HStack {
                                         Text("Favourites")
                 

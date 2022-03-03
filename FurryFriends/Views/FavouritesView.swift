@@ -9,11 +9,11 @@ import SwiftUI
 
 struct FavouritesView: View {
     // MARK: Stored properties
-    @Binding var favouriteDog: SavedDog
+    let favourites: [SavedDog]
     
     // MARK: Computed properties
     var body: some View {
-        List {
+        List(favourites, id: \.self) { favouriteDog in
             HStack {
                 RemoteImageView(fromURL: URL(string: favouriteDog.imageAdress)!)
                     .frame(width: 100, height: 100, alignment: .center)
