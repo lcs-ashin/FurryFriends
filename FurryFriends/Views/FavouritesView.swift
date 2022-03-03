@@ -9,7 +9,7 @@ import SwiftUI
 
 struct FavouritesView: View {
     // MARK: Stored properties
-    let favouriteDog: SavedDog
+    @Binding var favouriteDog: SavedDog
     
     // MARK: Computed properties
     var body: some View {
