@@ -23,7 +23,7 @@ struct ContentView: View {
     @State var isTheNewImageLoaded: Bool = false
     
     // List of favourites
-    @State var favourites: [DogImage] = []
+    @State var favourites: [SavedDog] = []
     
     // The image and comment saved in the favourite list
     @State var favouriteDog: SavedDog = SavedDog(imageAdress: "",
@@ -46,11 +46,12 @@ struct ContentView: View {
                 Image(systemName: "pawprint.circle")
                     .foregroundColor(currentImageAddedToFavourites == true ? .brown : .secondary)
                     .onTapGesture {
+                        favouriteDog = SavedDog(imageAdress: currentImage.message, comment: inputGiven)
                         // Only add to the list if it is not already there
                         if currentImageAddedToFavourites == false {
                             
                             // Adds the current image to the list
-                            favourites.append(currentImage)
+                            favourites.append(favouriteDog)
                             
                             // Record that we have marked this as a favourite
                             currentImageAddedToFavourites = true
@@ -88,10 +89,10 @@ struct ContentView: View {
                 List(favourites, id: \.self) { currentFavourite in
                     
                     HStack {
-                        RemoteImageView(fromURL: URL(string: currentFavourite.message)!)
+                        RemoteImageView(fromURL: URL(string: currentFavourite.imageAdress)!)
                             .frame(width: 100, height: 100, alignment: .center)
                             .padding(15)
-                        Text("\(inputGiven)")
+                        Text("\(currentFavourite.comment)")
                             .font(.system(size: 20))
                     }
                     
