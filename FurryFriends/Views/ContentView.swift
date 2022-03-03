@@ -78,6 +78,12 @@ struct ContentView: View {
                     .font(.system(size: 20))
                     .padding()
                 
+                HStack {
+                    Text("Favourites")
+                        .bold()
+                
+                    Spacer()
+                }
             
                 List(favourites, id: \.self) { currentFavourite in
                     
@@ -106,6 +112,7 @@ struct ContentView: View {
               //  Spacer()
                     .padding()
         }
+        .padding(20)
             // Runs once when the app is opened
             .task {
                 
