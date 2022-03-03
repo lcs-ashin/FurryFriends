@@ -78,42 +78,21 @@ struct ContentView: View {
                     .textFieldStyle(.roundedBorder)
                     .font(.system(size: 20))
                     .padding()
-                
-                HStack {
-                    Text("Favourites")
-                        .bold()
-                
-                    Spacer()
-                }
             
-                List(favourites, id: \.self) { currentFavourite in
-                    
-                    HStack {
-                        RemoteImageView(fromURL: URL(string: currentFavourite.imageAdress)!)
-                            .frame(width: 100, height: 100, alignment: .center)
-                            .padding(15)
-                        Text("\(currentFavourite.comment)")
-                            .font(.system(size: 20))
-                    }
-                    
-                }
-                
                 // Navigation link to the favourites view
-                //            NavigationLink(destination: FavouritesView(currentImage: currentImage,
-                //                                                       inputGiven: inputGiven)) {
-                //                    HStack {
-                //                        Text("Favourites")
-                //
-                //                        Image(systemName: "list.bullet")
-                //                    }
-                //                    .foregroundColor(.primary)
-                //                    .font(.system(size: 25).bold())
-                //                }
+                            NavigationLink(destination: FavouritesView(favouriteDog:favouriteDog)) {
+                                    HStack {
+                                        Text("Favourites")
                 
-              //  Spacer()
+                                        Image(systemName: "list.bullet")
+                                    }
+                                    .foregroundColor(.primary)
+                                    .font(.system(size: 25).bold())
+                                }
+                
+                Spacer()
                     .padding()
         }
-        .padding(20)
             // Runs once when the app is opened
             .task {
                 

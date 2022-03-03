@@ -9,17 +9,16 @@ import SwiftUI
 
 struct FavouritesView: View {
     // MARK: Stored properties
-    let currentImage: DogImage
-    let inputGiven: String
+    let favouriteDog: SavedDog
     
     // MARK: Computed properties
     var body: some View {
         List {
             HStack {
-                RemoteImageView(fromURL: URL(string: currentImage.message)!)
+                RemoteImageView(fromURL: URL(string: favouriteDog.imageAdress)!)
                     .frame(width: 100, height: 100, alignment: .center)
                     .padding(15)
-                Text("\(inputGiven)")
+                Text("\(favouriteDog.comment)")
                     .font(.system(size: 20))
             }
         }
